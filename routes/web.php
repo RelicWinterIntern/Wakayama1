@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/post/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::patch('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+    Route::get('/post/like/{id}', [PostController::class, 'likebutton'])->name('post.likebutton');
 
     Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');
 });

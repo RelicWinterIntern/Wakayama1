@@ -12,6 +12,15 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function totalLikes()
+    {
+        $total = $this->belongsTo(Total_like::class, 'id', 'id');
+        return $total;
+        
+    }
+
+    
 }
 
 
