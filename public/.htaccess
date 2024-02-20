@@ -5,6 +5,20 @@
 
     RewriteEngine On
 
+    # HTTPアクセスのみをHTTPSにリダイレクトする
+    # 「RewriteCond %{HTTPS} off」だとリダイレクトループが発生するので注意
+    # 301リダイレクトで旧URLが持っているGoogleからの評価を引き継ぐ
+    RewriteCond %{HTTP:X-Forwarded-Proto} ^http$
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # HTTPSアクセスの場合のみベーシック認証を行う
+    <If "%{HTTP:X-Forwarded-Proto} == 'https'">
+        AuthUserFile /app/.htpasswd
+        AuthType Basic
+        AuthName "Restricted Access"
+        Require valid-user
+    </If>
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
