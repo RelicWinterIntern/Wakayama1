@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Like;
+use App\Models\Vote;
+use App\Models\Survey;
 use App\Models\Total_like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +15,29 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('updated_at', 'desc')->get();
-        return view('post.index', compact('posts'));
+        // $surveys = Survey::orderBy('updated_at', 'desc')->get();
+
+        $file = public_path('/data.csv');
+
+
+        $data = [];
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r');
+            while (($line = fgetcsv($handle)) !== false)
+            {
+            $data[] = $line;
+            }
+
+        fclose($handle);
+        }
+
+        // お題をランダムで取得
+        array_shift($data);
+        $random = array_rand($data, 1);
+        $random_data = $data[$random];
+        
+
+        return view('post.index', compact('posts', 'random_data'));
     }
 
     public function create()
@@ -61,6 +85,24 @@ class PostController extends Controller
 
         return redirect()->route('post.index');
     }
+
+    // vote1
+    public function vote1($id)
+    {
+        $vote = Vote::where('survey_id', $id)->where('user_id', Auth::id())->first();
+        if (!$vote) {
+            $vote = new Vote();
+            $vote->survey_id = $id;
+            $vote->comment = '';
+            $vote->vote_status = 1;
+            $vote->user_id = Auth::id();
+            $vote->save(); 
+        } else {
+           
+        }
+        return view('survey.vote1', compact('vote'));
+    }
+    
 
     public function totallikeUpdate($postid):void
     {
