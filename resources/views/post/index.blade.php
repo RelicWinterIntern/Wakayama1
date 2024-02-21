@@ -21,18 +21,22 @@
                 <ul>
                         <li class="mb-6  rounded-lg p-4 bg-gradient-to-r from-green-200  to-purple-200">
                             <h3 class="text-lg font-bold mb-2 border-white border-bottom">お題：{{ $random_data[1] }}</h3>
-                            
+                            {{-- 画像 --}}
+                            <div class="flex justify-center">
+                                <img src="{{ asset('png/' . $image_name[0]) }}" alt="image" class="">
+                                <img src="{{ asset('png/' . $image_name[1]) }}" alt="image" class="">
+                            </div>
                             <div class="flex justify-between mt-8 ">
                             </div>
                             <div class="bg-gradient-to-r  from-green-200  to-purple-200">
                             <div class="flex justify-center  bg-gradient-to-r from-green-200  to-purple-200 text-3xl">
-                                <p class="text-green-500 hover:text-blue-500">
-                                    <a href="{{ route('survey.vote1', $random_data[0]) }}">
+                                <p class="">
+                                    <a class="text-green-500 hover:text-blue-500" href="{{ route('survey.vote1', $random_data[0]) }}">
                                         {{ $random_data[2] }}
                                     </a>
                                 </p>
                                 <p class="text-gray-600 mx-4 pt-2 text-xl">or</p>
-                                <p class="text-purple-500 hover:text-blue-500 ">
+                                <p class="">
                                     <a href="{{ route('survey.vote2', $random_data[0]) }}">
                                         {{ $random_data[3] }}
                                     </a>

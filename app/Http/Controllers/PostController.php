@@ -35,9 +35,15 @@ class PostController extends Controller
         array_shift($data);
         $random = array_rand($data, 1);
         $random_data = $data[$random];
+
+        // 画像ファイル名を取得
+        $image = $random_data[0]+1;
+        
+        $image_name[] = $image."_1.png";
+        $image_name[] = $image."_2.png";
         
 
-        return view('post.index', compact('posts', 'random_data'));
+        return view('post.index', compact('posts', 'random_data', 'image_name'));
     }
 
     public function create()
