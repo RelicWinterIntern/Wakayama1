@@ -75,9 +75,7 @@
                             </div>
                             @endif
 
-                             {{-- <div class="bg-white  border-2"> --}}
-                                {{-- <p class=" mt-3 pl-5">コメント：{{ $survey->body }}</p> --}}
-                            {{-- </div> --}}
+                             
                         </div>
                         </li>
 
@@ -105,6 +103,39 @@
             @else
                 <div class="flex justify-center items-center h-full">
                     <p class="text-lg text-gray-600">投稿はありません。</p>
+                </div>
+            @endif
+            @if (!empty($random_data))
+                <ul>
+                        <li class="mb-6  rounded-lg p-4 bg-gradient-to-r from-green-200  to-purple-200">
+                            <h3 class="text-lg font-bold mb-2 border-white border-bottom">次のお題：{{ $random_data[1] }}</h3>
+                            
+                            <div class="flex justify-between mt-8 ">
+                            </div>
+                            <div class="bg-gradient-to-r  from-green-200  to-purple-200">
+                            <div class="flex justify-center  bg-gradient-to-r from-green-200  to-purple-200 text-3xl">
+                                <p class="text-green-500 hover:text-blue-500">
+                                    <a href="{{ route('survey.vote1', $random_data[0]) }}">
+                                        {{ $random_data[2] }}
+                                    </a>
+                                </p>
+                                <p class="text-gray-600 mx-4 pt-2 text-xl">or</p>
+                                <p class="text-purple-500 hover:text-blue-500 ">
+                                    <a href="{{ route('survey.vote2', $random_data[0]) }}">
+                                        {{ $random_data[3] }}
+                                    </a>
+                                </p>
+                            </div>
+                            {{-- <div class="bg-white  border-2"> --}}
+                                {{-- <p class=" mt-3 pl-5">コメント：{{ $survey->body }}</p> --}}
+                            {{-- </div> --}}
+                        </div>
+                        </li>
+                    
+                </ul>
+            @else
+                <div class="flex justify-center items-center h-full">
+                    <p class="text-lg text-gray-600">投票できる投稿はありません。</p>
                 </div>
             @endif
             
