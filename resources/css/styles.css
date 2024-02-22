@@ -1,0 +1,13 @@
+.voteanimation {
+    animation: fadeIn 2s;
+}
+
+/* keyframe fadeIn */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
