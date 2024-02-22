@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('投稿一覧') }}
+            {{ __('迷ったら炎上🔥The二択アンケート！！') }}
         </h2>
     </x-slot>
 
@@ -61,7 +61,7 @@
                             <h3 class=" font-bold mb-2 border-bottom">{{ $post->title }}</h3>
                             <p class="text-gray-1000 mt-4">{{ $post->body }}</p>
                             <div class="flex justify-between mt-8">
-                                <p class="text-gray-600">{{ $post->user_id }}のツイート</p>
+                                <p class="text-gray-600">{{ $post->user->name }}のツイート</p>
                                 <p class="text-gray-600">{{ $post->updated_at }}</p>
                                 <p class="text-red-600">いいね数：{{ $post->totalLikes->likes_count }}</p>
                                 <a href="{{ route('post.likebutton', $post->id) }}" class="btn  btn-primary">いいね</a> 
