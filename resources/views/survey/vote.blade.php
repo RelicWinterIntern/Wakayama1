@@ -46,15 +46,15 @@
 
                             </div>
                             @if ($vote->vote_status == 1)
-                            <div class="flex justify-between  bg-gradient-to-r from-green-200  to-purple-200 text-3xl">
+                            <div class=" flex justify-between  bg-gradient-to-r from-green-200  to-purple-200 text-3xl">
                                 <p class="text-green-500 hover:text-blue-500">
-                                    <p class="text-green-500 hover:text-blue-500 pl-3">
+                                    <p class="voteanimation text-green-500 hover:text-blue-500 pl-3">
                                          {{ $vote_count[3] }}票！
                                     </p>
                                 </p>
                                 <p class="text-gray-800 mx-4 pt-2 text-base">投票結果は？</p>
                                 <p class="text-purple-500 hover:text-blue-500 ">
-                                    <p class="text-purple-500 hover:text-blue-500 pl-3">
+                                    <p class="voteanimation text-purple-500 hover:text-blue-500 pl-3">
                                          {{ $vote_count[2] }}票！
                                     </p>
                                 </p>
@@ -62,13 +62,13 @@
                             @elseif ($vote->vote_status == 2)
                             <div class="flex justify-between  bg-gradient-to-r from-green-200  to-purple-200 text-3xl">
                                 <p class="text-green-500 hover:text-blue-500">
-                                    <p class="text-green-500 hover:text-blue-500 pl-3">
+                                    <p class="voteanimation text-green-500 hover:text-blue-500 pl-3">
                                          {{ $vote_count[2] }}票！
                                     </p>
                                 </p>
                                 <p class="text-gray-800 mx-4 pt-2 text-base">投票結果は？</p>
                                 <p class="text-purple-500 hover:text-blue-500 ">
-                                    <p class="text-purple-500 hover:text-blue-500 pl-3">
+                                    <p class="voteanimation text-purple-500 hover:text-blue-500 pl-3">
                                          {{ $vote_count[3] }}票！
                                     </p>
                                 </p>
