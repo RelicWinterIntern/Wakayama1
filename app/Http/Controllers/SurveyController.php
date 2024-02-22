@@ -59,7 +59,11 @@ class SurveyController extends Controller
         else{
             $survey = null;
         }
-        return view('survey.vote', compact('vote', 'survey'));
+
+        //vote_count
+        $vote_count = $this->voteCount($id);
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id'));
     }
     
     // vote1
@@ -85,7 +89,10 @@ class SurveyController extends Controller
             $survey = null;
         }
 
-        return view('survey.vote', compact('vote', 'survey'));
+        //vote_count
+        $vote_count = $this->voteCount($id);
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id'));
     }
 
     public function csvSurvey($suveyid)
@@ -106,6 +113,26 @@ class SurveyController extends Controller
         array_shift($data);
 
         return $data[$suveyid];
+    }
+
+    public function voteCount($id)
+    {
+        
+        $vote = Vote::where('survey_id', $id)->where('vote_status', 1)->count();
+        if (!$vote) {
+            $vote = 0;
+        } else {
+           
+        }
+        $vote_count[2] = $vote;
+        $vote = Vote::where('survey_id', $id)->where('vote_status', 2)->count();
+        if (!$vote) {
+            $vote = 0;
+        } else {
+           
+        }
+        $vote_count[3] = $vote;
+        return $vote_count;
     }
 
 }
