@@ -87,6 +87,28 @@
                     <p class="text-lg text-gray-600">投票できる投稿はありません。</p>
                 </div>
             @endif
+            @if (!empty($posts))
+                <ul class="">
+                    @foreach ($posts as $post)
+                        <li class="mb-6 bg-white border rounded-lg p-4">
+                            <h3 class=" font-bold mb-2 border-bottom">{{ $post->title }}</h3>
+                            <p class="text-gray-1000 mt-4">{{ $post->body }}</p>
+                            <div class="flex justify-between mt-8">
+                                <p class="text-gray-600">{{ $post->user_id }}のツイート</p>
+                                <p class="text-gray-600">{{ $post->updated_at }}</p>
+                                <p class="text-red-600">いいね数：{{ $post->totalLikes->likes_count }}</p>
+                                <a href="{{ route('post.likebutton', $post->id) }}" class="btn  btn-primary">いいね</a> 
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <div class="flex justify-center items-center h-full">
+                    <p class="text-lg text-gray-600">投稿はありません。</p>
+                </div>
+            @endif
+            
         </div>
+
     </div>
 </x-app-layout>
