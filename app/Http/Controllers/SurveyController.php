@@ -67,7 +67,9 @@ class SurveyController extends Controller
         //post
         $posts = $this->postSlice();
 
-        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts'));
+        $random_data = $this->surveyRandom();
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts', 'random_data'));
     }
     
     // vote1
@@ -99,7 +101,9 @@ class SurveyController extends Controller
         //post
         $posts = $this->postSlice();
 
-        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts'));
+        $random_data = $this->surveyRandom();
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts', 'random_data'));
     }
 
     public function csvSurvey($suveyid)
@@ -148,6 +152,26 @@ class SurveyController extends Controller
         // 5個まで表示
         $posts = $posts->slice(0, 5);
         return $posts;
+    }
+
+    public function surveyRandom()
+    {
+        $file = public_path('/data.csv');
+
+        $data = [];
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r');
+            while (($line = fgetcsv($handle)) !== false)
+            {
+            $data[] = $line;
+            }
+
+        fclose($handle);
+        }
+        array_shift($data);
+        $random = array_rand($data, 1);
+        $random_data = $data[$random];
+        return $random_data;
     }
 
 }
