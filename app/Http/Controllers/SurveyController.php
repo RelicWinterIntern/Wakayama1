@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Survey;
 use App\Models\Vote;
+use App\Models\Post;
 use App\Models\Total_like;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +60,14 @@ class SurveyController extends Controller
         else{
             $survey = null;
         }
-        return view('survey.vote', compact('vote', 'survey'));
+
+        //vote_count
+        $vote_count = $this->voteCount($id);
+
+        //post
+        $posts = $this->postSlice();
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts'));
     }
     
     // vote1
@@ -85,7 +93,13 @@ class SurveyController extends Controller
             $survey = null;
         }
 
-        return view('survey.vote', compact('vote', 'survey'));
+        //vote_count
+        $vote_count = $this->voteCount($id);
+
+        //post
+        $posts = $this->postSlice();
+
+        return view('survey.vote', compact('vote', 'survey', 'vote_count', 'id',  'posts'));
     }
 
     public function csvSurvey($suveyid)
@@ -106,6 +120,34 @@ class SurveyController extends Controller
         array_shift($data);
 
         return $data[$suveyid];
+    }
+
+    public function voteCount($id)
+    {
+        
+        $vote = Vote::where('survey_id', $id)->where('vote_status', 1)->count();
+        if (!$vote) {
+            $vote = 0;
+        } else {
+           
+        }
+        $vote_count[2] = $vote;
+        $vote = Vote::where('survey_id', $id)->where('vote_status', 2)->count();
+        if (!$vote) {
+            $vote = 0;
+        } else {
+           
+        }
+        $vote_count[3] = $vote;
+        return $vote_count;
+    }
+
+    public function postSlice()
+    {
+        $posts = Post::orderBy('updated_at', 'desc')->get();
+        // 5個まで表示
+        $posts = $posts->slice(0, 5);
+        return $posts;
     }
 
 }
